@@ -1,0 +1,74 @@
+﻿@using System.Web.UI.WebControls
+@using VehicleFleet.ViewModels.RegisterShiftViewModels
+@model IEnumerable<RegisterShiftViewModel>
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/bundles/global")
+@Scripts.Render("~/bundles/globalLastFile")
+
+<script>
+	Globalize.culture("ru-RU");
+	// автоматическое определение культуры:
+	//Globalize.culture('@System.Threading.Thread.CurrentThread.CurrentCulture');
+</script>
+
+@{
+	ViewBag.Title = "Список смен водителей";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+	@Html.ActionLink("Создать новую смену", "AddRegisterShift", "RegisterShift", new { vehicleId = ViewBag.VehicleId }, new { })
+</p>
+
+@if (Model.ToList().Count > 0)
+{
+	<table class="table">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.TimeOfBeginning)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.TimeOfEnd)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Driver.FullName)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Mileage)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.FuelConsumption)
+			</th>
+			<th></th>
+		</tr>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.TimeOfBeginning)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.TimeOfEnd)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Driver.FullName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Mileage)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.FuelConsumption)
+				</td>
+				<td>
+					@Html.ActionLink("Удалить", "DeleteRegisterShift", "RegisterShift", new { id = item.Id }, new { })
+				</td>
+			</tr>
+		}
+	</table>
+}
+else
+{
+	<h3>У этого автомобиля еще не было записей в реестре смен водителей.</h3>
+}

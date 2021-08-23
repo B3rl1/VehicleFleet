@@ -1,0 +1,15 @@
+﻿
+@using VehicleFleet.ViewModels.VehicleViewModels;
+
+@model VehicleEditViewModel
+@{
+	ViewBag.Title = Model.Title;
+}
+
+<div class="form-group">
+	@Html.LabelFor(m => m.ResidualValue, new { @class = "col-md-3 control-label" })
+	<div class="col-md-3">
+		@Html.TextBoxFor(m => m.ResidualValue, new { @readonly = "readonly", @class = "form-control" })
+	</div>
+</div>
+

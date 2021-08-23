@@ -1,0 +1,38 @@
+﻿@model IEnumerable<VehicleFleet.ViewModels.DriverViewModels.DriverViewModel>
+
+@{
+	ViewBag.Title = "Список водителей";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.ActionLink("Добавить водителя", "AddDriver")
+
+<table class="table">
+	<thead>
+	<tr>
+		<th>
+			@Html.DisplayNameFor(m => m.FirstName)
+		</th>
+		<th>
+			@Html.DisplayNameFor(m => m.LastName)
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	@foreach (var item in Model)
+	{
+		<tr>
+			<td>
+				@Html.DisplayFor(model => item.FirstName)
+			</td>
+			<td>
+				@Html.DisplayFor(model => item.LastName)
+			</td>
+			<td>
+				@Html.ActionLink("Удалить", "DeleteDriver", new { id = item.Id })
+			</td>
+		</tr>
+	}
+	</tbody>
+</table>

@@ -1,0 +1,53 @@
+﻿@using VehicleFleet.ViewModels.RegisterShiftViewModels
+@model IEnumerable<RegisterShiftViewModel>
+
+@{
+    ViewBag.Title = "Список смен водителей";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeOfBeginning)
+        </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.TimeOfEnd)
+	    </th>
+	    <th>
+		    @Html.DisplayNameFor(model => model.Driver.FullName)
+	    </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mileage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FuelConsumption)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeOfBeginning)
+        </td>
+	    <td>
+		    @Html.DisplayFor(modelItem => item.TimeOfEnd)
+	    </td>
+	    <td>
+		    @Html.DisplayFor(modelItem => item.Driver.FullName)
+	    </td>
+	    <td>
+            @Html.DisplayFor(modelItem => item.Mileage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FuelConsumption)
+        </td>
+        <td>
+            @Html.ActionLink("Удалить", "DeleteRegisterShift", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,42 @@
+﻿@using VehicleFleet.ViewModels.VehicleViewModels
+@model IEnumerable<VehicleViewModel>
+
+@{
+	ViewBag.Title = "Список автомобилей";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.ActionLink("Добавить новый автомобиль", "AddVehicle")
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(m=> m.Name)
+			</th>
+			<th>
+				@Html.DisplayNameFor(m => m.EngineHP)
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(model => item.Name)
+				</td>
+				<td>
+					@Html.DisplayFor(model => item.EngineHP)
+				</td>
+				<td>
+					@Html.ActionLink("Изменить", "EditVehicle", new { id = item.Id })
+
+					@Html.ActionLink("Удалить", "DeleteVehicle", new { id = item.Id })
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+

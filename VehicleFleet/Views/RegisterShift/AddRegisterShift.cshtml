@@ -1,0 +1,75 @@
+﻿@using VehicleFleet.ViewModels.RegisterShiftViewModels;
+@model RegisterShiftEditViewModel
+
+@{
+	ViewBag.Title = Model.Title;
+}
+
+<h2>@Model.Title</h2>
+
+<div class="row">
+	<div class="col-md-8">
+		<section id="loginForm">
+			@using (Html.BeginForm("AddNewRegisterShift", "RegisterShift", new { RedirectUrl = Model.RedirectUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+			{
+				<h4>Введите данные новой смены</h4>
+				<hr />
+
+				@Html.HiddenFor(m => m.VehicleId)
+				@Html.ValidationMessageFor(m => m.VehicleId, "", new { @class = "text-danger" })
+
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+				<div class="form-group">
+					@Html.LabelFor(m => m.TimeOfBeginning, new { @class = "col-md-4 control-label" })
+					<div class="col-md-8">
+						@Html.EditorFor(m => m.TimeOfBeginning, new { })	
+						@Html.ValidationMessageFor(m => m.TimeOfBeginning, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.TimeOfEnd, new { @class = "col-md-4 control-label" })
+					<div class="col-md-8">
+						@Html.EditorFor(m => m.TimeOfEnd, new { })
+						@Html.ValidationMessageFor(m => m.TimeOfEnd, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.Driver, new { @class = "col-md-4 control-label" })
+					<div class="col-md-8">
+						@Html.DropDownListFor(d => d.DriverId, ViewBag.Driver as SelectList, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.DriverId, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.Mileage, new { @class = "col-md-4 control-label" })
+					<div class="col-md-8">
+						@Html.TextBoxFor(model => model.Mileage,new { @step = "any", @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.Mileage, "", new { @class = "text-danger" })
+					</div>
+				</div>
+				<div class="form-group">
+					@Html.LabelFor(m => m.FuelConsumption, new { @class = "col-md-4 control-label" })
+					<div class="col-md-8">
+						@Html.TextBoxFor(m => m.FuelConsumption, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.FuelConsumption, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-md-offset-4 col-md-8">
+						<input type="submit" value="@Model.AddButtonTitle" class="btn btn-default" />
+					</div>
+				</div>
+			}
+		</section>
+	</div>
+</div>
+
+
+@section Scripts {
+	@Scripts.Render("~/Scripts/jquery-3.1.1.js")
+	@Scripts.Render("~/Scripts/jquery.validate.min.js")
+	@Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+	@Scripts.Render("~/Scripts/moment.js")
+}

@@ -1,0 +1,109 @@
+﻿
+@using VehicleFleet.ViewModels.VehicleViewModels;
+
+@model VehicleEditViewModel
+@{
+	ViewBag.Title = Model.Title;
+}
+
+<h2>@Model.Title</h2>
+
+<div class="row">
+	<div class="col-md-12">
+		<section id="loginForm">
+			@using (Html.BeginForm("SaveVehicle", "Vehicle", new { RedirectUrl = Model.RedirectUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+			{
+				<h4>Введите новые значения автомобиля</h4>
+				<br />
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+				@Html.HiddenFor(m => m.Id);
+				@Html.ValidationMessageFor(m=>m.Id)
+				<div class="form-group">
+					@Html.LabelFor(m => m.Name, new { @class = "col-md-3 control-label align-left" })
+					<div class="col-md-9">
+						@Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+					</div>
+					<hr />
+					@Html.LabelFor(m => m.EngineHP, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.TextBoxFor(m => m.EngineHP, new { @class = "form-control" })
+						@Html.ValidationMessageFor(m => m.EngineHP, "", new { @class = "text-danger" })
+					</div>
+					<hr />
+					<br />
+
+					@Html.LabelFor(m => m.NewCarCost, new { @class = "col-md-3 control-label" })
+					<div class="row">
+						<div class="col-md-8">
+							@Html.TextBoxFor(m => m.NewCarCost, new { @class = "form-control" })
+							@Html.ValidationMessageFor(m => m.NewCarCost, "", new { @class = "text-danger" })
+						</div>
+					</div>
+
+
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-3 col-md-9">
+						<input type="submit" value="@Model.AddButtonTitle" class="btn btn-default" />
+					</div>
+				</div>
+			}
+		</section>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		@Html.Partial("~/Views/RegisterShift/Partial.cshtml", Model.RegisterShifts)
+	</div>
+</div>
+
+<div id="residualValue" value=@Model.ResidualValueByYear.Count>
+	@foreach (var record in Model.ResidualValueByYear)
+	{
+		@Html.HiddenFor(model => record.Key,new {@class="recordKey"})
+		@Html.HiddenFor(model => record.Value, new { @class = "recordValue"})
+	}
+</div>
+
+<div class="row">
+	<div class="form-group">
+		@Html.LabelFor(m => m.MileageSum, new { @class = "col-md-3 control-label" })
+		<div class="col-md-9">
+			@Html.DisplayFor(m => m.MileageSum) км.
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="form-group">
+		@Html.LabelFor(m => m.FuelConsumptionSum, new { @class = "col-md-3 control-label" })
+		<div class="col-md-9">
+			@Html.DisplayFor(m => m.FuelConsumptionSum) л.
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="form-group">
+		@Html.LabelFor(m => m.ResidualValue, new { @class = "col-md-3 control-label" })
+		<div class="col-md-9">
+			@Html.DisplayFor(m => m.ResidualValue, "0:f2")
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-12">
+		<div class="card-header">
+			<h3 align="center">График остаточной стоимости за время эксплуатации т.с., в рублях.</h3>
+		</div>
+		<div class="card-body">
+			<canvas class="my-4 h-25" id="bar"></canvas>
+		</div>
+	</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js" integrity="sha512-Wt1bJGtlnMtGP0dqNFH1xlkLBNpEodaiQ8ZN5JLA5wpc1sUlk/O5uuOMNgvzddzkpvZ9GLyYNa8w2s7rqiTk5Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="~/Scripts/ChartGraph/chartgraph.js"></script>
+@section Scripts {
+	@Scripts.Render("~/bundles/jqueryval")
+}
